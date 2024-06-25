@@ -1,5 +1,5 @@
 <h1>Flutter Gutenberg App</h1>
-    <p>A mobile application built using Flutter to browse and manage books from the Gutenberg API.</p>
+    <p>A mobile application built using Flutter to browse and manage books from the <a href="http://gutendex.com/">Gutenberg API</a>.</p>
 
 <h2>Tech Stack</h2>
 
