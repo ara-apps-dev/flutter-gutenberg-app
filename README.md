@@ -80,3 +80,20 @@
     <li>Run the automation tests using:</li>
     <code>flutter drive --target=test_driver/app.dart</code>
 </ol>
+
+<h3>Todo List</h3>
+<ul>
+    <li>Create UI/UX design using Figma: In Progress 🚧</li>
+    <li>Set up Flutter project structure</li>
+    <li>Implement state management using BLoC and GetIt</li>
+    <li>Design and implement task list screen</li>
+    <li>Implement CRUD functionality for tasks</li>
+    <li>Persist data using SQLite</li>
+    <li>Add task completion feature</li>
+    <li>Implement search functionality</li>
+    <li>Write unit and widget tests</li>
+    <li>Implement automation tests (integration and end-to-end tests using Maestro)</li>
+    <li>Prepare documentation</li>
+    <li>Implement GitHub Actions for Android deployment to Firebase</li>
+    <li>Deploy to Firebase for Android</li>
+</ul>
