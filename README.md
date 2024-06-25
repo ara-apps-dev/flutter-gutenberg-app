@@ -84,16 +84,16 @@
 <h3>Todo List</h3>
 <ul>
     <li>Create UI/UX design using Figma: In Progress 🚧</li>
-    <li>Set up Flutter project structure</li>
-    <li>Implement state management using BLoC and GetIt</li>
-    <li>Design and implement task list screen</li>
-    <li>Implement CRUD functionality for tasks</li>
-    <li>Persist data using SQLite</li>
-    <li>Add task completion feature</li>
-    <li>Implement search functionality</li>
-    <li>Write unit and widget tests</li>
-    <li>Implement automation tests (integration and end-to-end tests using Maestro)</li>
-    <li>Prepare documentation</li>
-    <li>Implement GitHub Actions for Android deployment to Firebase</li>
-    <li>Deploy to Firebase for Android</li>
+    <li>Set up Flutter project structure : Todo ⏳</li>
+    <li>Implement state management using BLoC and GetIt : Todo ⏳</li>
+    <li>Design and implement task list screen : Todo ⏳</li>
+    <li>Implement CRUD functionality for tasks : Todo ⏳</li>
+    <li>Persist data using SQLite : Todo ⏳</li>
+    <li>Add task completion feature : Todo ⏳</li>
+    <li>Implement search functionality : Todo ⏳</li>
+    <li>Write unit and widget tests : Todo ⏳</li>
+    <li>Implement automation tests (integration and end-to-end tests using Maestro) : Todo ⏳</li>
+    <li>Prepare documentation : Todo ⏳</li>
+    <li>Implement GitHub Actions for Android deployment to Firebase : Todo ⏳</li>
+    <li>Deploy to Firebase for Android : Todo ⏳</li>
 </ul>
