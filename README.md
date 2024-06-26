@@ -83,8 +83,8 @@
 
 <h3>Todo List</h3>
 <ul>
-    <li>Create UI/UX design using Figma: In Progress 🚧</li>
-    <li>Set up Flutter project structure : Todo ⏳</li>
+    <li>Create UI/UX design using Figma: Completed ✅</li>
+    <li>Set up Flutter project structure: In Progress 🚧</li>
     <li>Implement state management using BLoC and GetIt : Todo ⏳</li>
     <li>Design and implement task list screen : Todo ⏳</li>
     <li>Implement CRUD functionality for tasks : Todo ⏳</li>
