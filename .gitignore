@@ -37,7 +37,24 @@ app.*.symbols
 # Obfuscation related
 app.*.map.json
 
-# Android Studio will place build artifacts here
+# Android Studio build artifacts
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Environment files
+.env
+.env_development
+.env_staging
+.env_production
+
+# Generated files
+/lib/env/env.g.dart
+
+# Scripts and build configuration
+/scripts
+build.yaml
+build.yaml.template
+
+# Starter setup files
+/starter_setup/starter_files
