@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../env/env.dart';
+
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
 
@@ -10,10 +12,11 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
         child: Text(
-          'Welcome to MyApp',
+          // 'Welcome to MyApp',
+          'Key : ${Env.mode}',
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
       ),
