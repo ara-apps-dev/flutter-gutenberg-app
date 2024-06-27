@@ -6,5 +6,6 @@ starter-setup: ## Seting up starter files
 	@cp starter_setup/starter_files/.env_staging .env_staging
 	@cp starter_setup/starter_files/.env_production .env_production
 	@cp starter_setup/starter_files/build.yaml.template build.yaml.template
-	@cp -r starter_setup/starter_files/scripts scripts
+	@cp -rf starter_setup/starter_files/scripts/build.mk scripts/build.mk
+	@cp -rf starter_setup/starter_files/scripts/setup.mk scripts/setup.mk
 	@echo "Setup complete. You can now proceed with your project."
