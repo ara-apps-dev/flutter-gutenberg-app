@@ -52,7 +52,8 @@ app.*.map.json
 /lib/env/env.g.dart
 
 # Scripts and build configuration
-/scripts
+scripts/build.mk
+scripts/setup.mk
 build.yaml
 build.yaml.template
 
