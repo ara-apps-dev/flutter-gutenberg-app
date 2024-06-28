@@ -6,7 +6,7 @@ include scripts/setup.mk
 include scripts/build.mk
 
 # Declare the setupenv target as a phony target
-.PHONY: help starter-setup setupenv generate-dev generate-stg generate-prod test run clean
+.PHONY: help starter-setup setupenv generate-dev generate-stg generate-prod test run clean build
 
 # Define aliases for running the setupenv target
 setup: setupenv
