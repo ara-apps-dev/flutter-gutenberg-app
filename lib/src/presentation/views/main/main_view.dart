@@ -15,8 +15,6 @@ class MainView extends StatefulWidget {
 }
 
 class _MainViewState extends State<MainView> {
-  final _controller = NavbarCubit();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,11 +29,10 @@ class _MainViewState extends State<MainView> {
 
   Widget _buildPageView() {
     return BlocBuilder<NavbarCubit, int>(
-      bloc: _controller,
       builder: (context, state) {
         return PageView(
           physics: const NeverScrollableScrollPhysics(),
-          controller: _controller.controller,
+          controller: context.read<NavbarCubit>().controller,
           children: const [
             HomeView(),
             BookshelfView(),
@@ -53,17 +50,16 @@ class _MainViewState extends State<MainView> {
       left: 0,
       right: 0,
       child: BlocBuilder<NavbarCubit, int>(
-        bloc: _controller,
         builder: (context, state) {
           return CustomSnakeNavigationBar(
             currentIndex: state,
             onTap: (index) {
-              _controller.controller.animateToPage(
-                index,
-                duration: const Duration(milliseconds: 400),
-                curve: Curves.linear,
-              );
-              _controller.update(index);
+              context.read<NavbarCubit>().controller.animateToPage(
+                    index,
+                    duration: const Duration(milliseconds: 400),
+                    curve: Curves.linear,
+                  );
+              context.read<NavbarCubit>().update(index);
             },
           );
         },

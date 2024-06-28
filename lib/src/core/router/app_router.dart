@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-
 import '../../presentation/views/main/main_view.dart';
 import '../error/exceptions.dart';
 
 class AppRouter {
-  //main menu
   static const String home = '/';
 
   static Route<dynamic> onGenerateRoute(RouteSettings routeSettings) {
