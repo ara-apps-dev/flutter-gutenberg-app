@@ -10,6 +10,7 @@ environment:
   sdk: ">=3.4.3 <4.0.0"
 
 dependencies:
+  font_awesome_flutter: ^10.1.0
   flutter_bloc: ^8.0.1
   get_it: ^7.2.0
   equatable: ^2.0.3
@@ -21,6 +22,8 @@ dependencies:
     sdk: flutter
   dartz: ^0.10.1
   internet_connection_checker: ^1.0.0+1
+  bloc: ^8.1.4
+  flutter_snake_navigationbar: ^0.6.1
 
 dev_dependencies:
   flutter_test:
