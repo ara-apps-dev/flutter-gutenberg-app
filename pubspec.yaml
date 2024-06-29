@@ -24,6 +24,10 @@ dependencies:
   internet_connection_checker: ^1.0.0+1
   bloc: ^8.1.4
   flutter_snake_navigationbar: ^0.6.1
+  mocktail: ^1.0.4
+  flutter_secure_storage: ^4.2.1
+  shared_preferences: ^2.2.3
+  http: ^1.2.1
 
 dev_dependencies:
   flutter_test:
