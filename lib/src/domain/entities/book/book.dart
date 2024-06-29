@@ -8,6 +8,14 @@ class Author {
     required this.birthYear,
     required this.deathYear,
   });
+
+  Map<String, dynamic> toJson() {
+    return {
+      "name": name,
+      "birth_year": birthYear,
+      "death_year": deathYear,
+    };
+  }
 }
 
 class Book {
@@ -22,4 +30,13 @@ class Book {
     required this.authors,
     required this.description,
   });
+
+  Map<String, dynamic> toJson() {
+    return {
+      "id": id,
+      "title": title,
+      "authors": authors.map((author) => author.toJson()).toList(),
+      "description": description,
+    };
+  }
 }

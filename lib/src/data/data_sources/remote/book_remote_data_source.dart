@@ -1,6 +1,7 @@
 import 'package:http/http.dart' as http;
 import '../../../../env/env.dart';
 import '../../../core/error/exceptions.dart';
+import '../../../core/util/url_generate.dart';
 import '../../../domain/usecase/book/get_book_usecase.dart';
 import '../../models/book/book_response_model.dart';
 
@@ -14,7 +15,7 @@ class BookRemoteDataSourceImpl implements BookRemoteDataSource {
 
   @override
   Future<BookResponseModel> getBooks(FilterBookParams params) async {
-    final url = params.pageUrl ?? _constructUrl(params);
+    final url = params.pageUrl ?? constructUrl(params);
     final response = await client.get(
       Uri.parse(url),
       headers: {
@@ -26,23 +27,5 @@ class BookRemoteDataSourceImpl implements BookRemoteDataSource {
     } else {
       throw ServerException();
     }
-  }
-
-  String _constructUrl(FilterBookParams params) {
-    final queryParameters = {
-      'author_year_start': params.authorYearStart?.toString(),
-      'author_year_end': params.authorYearEnd?.toString(),
-      'copyright': params.copyright?.toString(),
-      'ids': params.ids?.join(','),
-      'languages': params.languages?.join(','),
-      'mime_type': params.mimeType,
-      'search': params.search,
-      'sort': params.sort,
-      'topic': params.topic,
-    }..removeWhere((key, value) => value == null);
-
-    final uri = Uri.parse('${Env.baseUrl}/books')
-        .replace(queryParameters: queryParameters);
-    return uri.toString();
   }
 }

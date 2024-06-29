@@ -9,9 +9,9 @@ class PaginationMetaDataModel extends PaginationMetaData {
 
   factory PaginationMetaDataModel.fromJson(Map<String, dynamic> json) =>
       PaginationMetaDataModel(
-        count: json["count"],
-        next: json["next"],
-        previous: json["previous"],
+        count: json["count"] ?? 0,
+        next: json["next"] ?? '',
+        previous: json["previous"] ?? '',
       );
 
   @override

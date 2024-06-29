@@ -12,21 +12,46 @@ String bookResponseModelToJson(BookResponseModel data) =>
     json.encode(data.toJson());
 
 class BookResponseModel extends BookResponse {
+  final PaginationMetaData? meta;
+  final List<Book>? data;
+
   BookResponseModel({
-    required PaginationMetaData meta,
-    required List<Book> data,
-  }) : super(books: data, paginationMetaData: meta);
+    required this.meta,
+    required this.data,
+  }) : super(
+            books: data ?? [],
+            paginationMetaData:
+                meta ?? PaginationMetaData(count: 0, next: "", previous: ""));
 
-  factory BookResponseModel.fromJson(Map<String, dynamic> json) =>
-      BookResponseModel(
-        meta: PaginationMetaDataModel.fromJson(json["meta"]),
-        data: List<BookModel>.from(
-            json["data"].map((x) => BookModel.fromJson(x))),
+  factory BookResponseModel.fromJson(Map<String, dynamic>? json) {
+    if (json == null) {
+      return BookResponseModel(
+        meta: null,
+        data: [],
       );
+    }
 
-  Map<String, dynamic> toJson() => {
-        "meta": (paginationMetaData as PaginationMetaDataModel).toJson(),
-        "data": List<dynamic>.from(
-            (books as List<BookModel>).map((x) => x.toJson())),
-      };
+    return BookResponseModel(
+      meta: json["meta"] != null
+          ? PaginationMetaDataModel.fromJson(json["meta"])
+          : null,
+      data: json["data"] != null
+          ? List<Book>.from(json["data"].map((x) => BookModel.fromJson(x)))
+          : [],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> json = {};
+
+    if (meta != null) {
+      json["meta"] = meta!.toJson();
+    }
+
+    if (data != null) {
+      json["data"] = data!.map((x) => x.toJson()).toList();
+    }
+
+    return json;
+  }
 }
