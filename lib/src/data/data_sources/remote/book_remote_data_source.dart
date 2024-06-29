@@ -1,5 +1,5 @@
-import 'package:flutter_gutenberg_app/env/env.dart';
 import 'package:http/http.dart' as http;
+import '../../../../env/env.dart';
 import '../../../core/error/exceptions.dart';
 import '../../../domain/usecase/book/get_book_usecase.dart';
 import '../../models/book/book_response_model.dart';
@@ -13,28 +13,8 @@ class BookRemoteDataSourceImpl implements BookRemoteDataSource {
   BookRemoteDataSourceImpl({required this.client});
 
   @override
-  Future<BookResponseModel> getBooks(FilterBookParams params) {
-    final queryParameters = {
-      if (params.authorYearStart != null)
-        'author_year_start': params.authorYearStart.toString(),
-      if (params.authorYearEnd != null)
-        'author_year_end': params.authorYearEnd.toString(),
-      if (params.copyright != null) 'copyright': params.copyright.toString(),
-      if (params.ids != null) 'ids': params.ids!.join(','),
-      if (params.languages != null) 'languages': params.languages!.join(','),
-      if (params.mimeType != null) 'mime_type': params.mimeType!,
-      if (params.search != null) 'search': params.search!,
-      if (params.sort != null) 'sort': params.sort!,
-      if (params.topic != null) 'topic': params.topic!,
-    };
-
-    final queryString = Uri(queryParameters: queryParameters).query;
-    final url = '${Env.baseUrl}/books?$queryString';
-
-    return _getBookFromUrl(url);
-  }
-
-  Future<BookResponseModel> _getBookFromUrl(String url) async {
+  Future<BookResponseModel> getBooks(FilterBookParams params) async {
+    final url = params.pageUrl ?? _constructUrl(params);
     final response = await client.get(
       Uri.parse(url),
       headers: {
@@ -46,5 +26,23 @@ class BookRemoteDataSourceImpl implements BookRemoteDataSource {
     } else {
       throw ServerException();
     }
+  }
+
+  String _constructUrl(FilterBookParams params) {
+    final queryParameters = {
+      'author_year_start': params.authorYearStart?.toString(),
+      'author_year_end': params.authorYearEnd?.toString(),
+      'copyright': params.copyright?.toString(),
+      'ids': params.ids?.join(','),
+      'languages': params.languages?.join(','),
+      'mime_type': params.mimeType,
+      'search': params.search,
+      'sort': params.sort,
+      'topic': params.topic,
+    }..removeWhere((key, value) => value == null);
+
+    final uri = Uri.parse('${Env.baseUrl}/books')
+        .replace(queryParameters: queryParameters);
+    return uri.toString();
   }
 }

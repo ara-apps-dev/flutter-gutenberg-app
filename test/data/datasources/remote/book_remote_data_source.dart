@@ -30,14 +30,16 @@ void main() {
       search: 'adventure',
       sort: 'ascending',
       topic: 'literature',
+      pageUrl: null,
     );
 
     final expectedUrl =
         '${Env.baseUrl}/books?author_year_start=${fakeParams.authorYearStart}&author_year_end=${fakeParams.authorYearEnd}&copyright=${fakeParams.copyright}&ids=${(fakeParams.ids ?? []).join(',')}&languages=${(fakeParams.languages ?? []).join(',')}&mime_type=${fakeParams.mimeType}&search=${fakeParams.search}&sort=${fakeParams.sort}&topic=${fakeParams.topic}';
     final fakeResponse = fixture('book/book_remote_response.json');
 
-    test('should perform a GET request to the correct URL', () async {
-      /// Arrange
+    test('should perform a GET request to the correct URL when pageUrl is null',
+        () async {
+      // Arrange
       when(() => mockHttpClient.get(
             Uri.parse(expectedUrl),
             headers: {
@@ -45,25 +47,47 @@ void main() {
             },
           )).thenAnswer((_) async => http.Response(fakeResponse, 200));
 
-      /// Act
+      // Act
       final result = await dataSource.getBooks(fakeParams);
 
-      /// Assert
+      // Assert
       verify(() => mockHttpClient.get(Uri.parse(expectedUrl),
           headers: any(named: 'headers')));
       expect(result, isA<BookResponseModel>());
     });
 
+    test(
+        'should perform a GET request to the correct URL when pageUrl is provided',
+        () async {
+      // Arrange
+      final fakeParamsWithPageUrl =
+          fakeParams.copyWith(pageUrl: 'https://example.com/page=2');
+      when(() => mockHttpClient.get(
+            Uri.parse(fakeParamsWithPageUrl.pageUrl!),
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          )).thenAnswer((_) async => http.Response(fakeResponse, 200));
+
+      // Act
+      final result = await dataSource.getBooks(fakeParamsWithPageUrl);
+
+      // Assert
+      verify(() => mockHttpClient.get(Uri.parse(fakeParamsWithPageUrl.pageUrl!),
+          headers: any(named: 'headers')));
+      expect(result, isA<BookResponseModel>());
+    });
+
     test('should throw a ServerException on non-200 status code', () async {
-      /// Arrange
+      // Arrange
       when(() => mockHttpClient.get(Uri.parse(expectedUrl),
               headers: any(named: 'headers')))
           .thenAnswer((_) async => http.Response('Error message', 404));
 
-      /// Act
+      // Act
       final call = dataSource.getBooks(fakeParams);
 
-      /// Assert
+      // Assert
       expect(() => call, throwsA(isA<ServerException>()));
     });
   });

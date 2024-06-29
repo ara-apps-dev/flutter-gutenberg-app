@@ -1,23 +1,64 @@
 {
-  "meta": {
-    "total_count": 12345,
-    "per_page": 10,
-    "current_page": 1,
-    "total_pages": 1235
-  },
-  "data": [
+  "count": 1000,
+  "next": "https://gutendex.com/books/?page=2",
+  "previous": null,
+  "results": [
     {
       "id": 1,
-      "title": "Moby Dick",
+      "title": "Pride and Prejudice",
       "authors": [
         {
-          "name": "Melville, Herman",
-          "birth_year": 1819,
-          "death_year": 1891
+          "name": "Austen, Jane",
+          "birth_year": 1775,
+          "death_year": 1817
         }
       ],
+      "translators": [],
+      "subjects": [
+        "Courtship -- Fiction",
+        "Domestic fiction",
+        "England -- Fiction",
+        "Love stories",
+        "Social classes -- Fiction",
+        "Young women -- Fiction"
+      ],
+      "bookshelves": ["Best Books Ever Listings", "Harvard Classics"],
       "languages": ["en"],
-      "download_count": 42
+      "copyright": false,
+      "media_type": "Text",
+      "formats": {
+        "text/plain": "https://www.gutenberg.org/ebooks/1.txt.utf-8",
+        "application/epub+zip": "https://www.gutenberg.org/ebooks/1.epub.images",
+        "application/x-mobipocket-ebook": "https://www.gutenberg.org/ebooks/1.kindle.images"
+      },
+      "download_count": 51234
+    },
+    {
+      "id": 2,
+      "title": "Alice's Adventures in Wonderland",
+      "authors": [
+        {
+          "name": "Carroll, Lewis",
+          "birth_year": 1832,
+          "death_year": 1898
+        }
+      ],
+      "translators": [],
+      "subjects": [
+        "Fantasy fiction",
+        "Imaginary places -- Juvenile fiction",
+        "Logic -- Juvenile fiction"
+      ],
+      "bookshelves": ["Children's Literature"],
+      "languages": ["en"],
+      "copyright": false,
+      "media_type": "Text",
+      "formats": {
+        "text/plain": "https://www.gutenberg.org/ebooks/2.txt.utf-8",
+        "application/epub+zip": "https://www.gutenberg.org/ebooks/2.epub.images",
+        "application/x-mobipocket-ebook": "https://www.gutenberg.org/ebooks/2.kindle.images"
+      },
+      "download_count": 123456
     }
   ]
 }
