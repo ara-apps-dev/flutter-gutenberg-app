@@ -4,16 +4,18 @@ import 'book_detail_event.dart';
 import 'book_detail_state.dart';
 
 class BookDetailBloc extends Bloc<BookDetailEvent, BookDetailState> {
-  final GetBookDetailUseCase getBookDetailUseCase;
+  final GetBookDetailUseCase? getBookDetailUseCase;
 
-  BookDetailBloc(this.getBookDetailUseCase) : super(BookDetailInitial()) {
+  BookDetailBloc(
+    this.getBookDetailUseCase,
+  ) : super(BookDetailInitial()) {
     on<GetBookDetail>(_onGetBookDetail);
   }
 
   void _onGetBookDetail(
       GetBookDetail event, Emitter<BookDetailState> emit) async {
     emit(BookDetailLoading());
-    final result = await getBookDetailUseCase(event.bookId);
+    final result = await getBookDetailUseCase!(event.bookId);
     result.fold((failure) {
       emit(BookDetailError(failure));
     }, (bookDetail) {

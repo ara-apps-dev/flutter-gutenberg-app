@@ -1,3 +1,4 @@
+import '../book_detail/formats.dart';
 import 'author.dart';
 
 class Book {
@@ -9,7 +10,7 @@ class Book {
   final List<String> languages;
   final bool copyright;
   final String mediaType;
-  final Map<String, String> formats;
+  final Formats formats;
   final int downloadCount;
 
   Book({
@@ -43,9 +44,7 @@ class Book {
           : [],
       copyright: json['copyright'] ?? false,
       mediaType: json['media_type'] ?? '',
-      formats: json['formats'] != null
-          ? Map<String, String>.from(json['formats'])
-          : {},
+      formats: Formats.fromJson(json['formats']),
       downloadCount: json['download_count'] ?? 0,
     );
   }
@@ -64,6 +63,6 @@ class Book {
       };
 
   String? getCoverImageUrl() {
-    return formats['image/jpeg'];
+    return formats.coverImage;
   }
 }

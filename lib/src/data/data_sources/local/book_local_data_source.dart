@@ -1,8 +1,11 @@
-import 'package:hive_flutter/hive_flutter.dart';
+import 'dart:convert';
+
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/error/exceptions.dart';
 import '../../../domain/entities/book_detail/book_detail.dart';
 import '../../models/book/book_response_model.dart';
+import '../../models/book_detail/book_detail_response_model.dart';
 
 abstract class BookLocalDataSource {
   Future<BookResponseModel> getLastBooks();
@@ -13,45 +16,45 @@ abstract class BookLocalDataSource {
   Future<List<BookDetail>> getLikedBooks();
 }
 
-class BookLocalDataSourceImpl implements BookLocalDataSource {
-  final HiveInterface hive;
+const cachedBooks = 'CACHED_BOOKS';
+const cachedBookDetails = 'CACHED_BOOK_DETAILS';
+const likedBooksKey = 'LIKED_BOOKS';
 
-  BookLocalDataSourceImpl({required this.hive});
+class BookLocalDataSourceImpl implements BookLocalDataSource {
+  final SharedPreferences sharedPreferences;
+  BookLocalDataSourceImpl({required this.sharedPreferences});
 
   @override
-  Future<BookResponseModel> getLastBooks() async {
-    try {
-      final box = await hive.openBox<BookResponseModel>('cached_books');
-      if (box.isNotEmpty) {
-        final cachedBooks = box.getAt(0);
-        return cachedBooks!;
-      } else {
-        throw CacheException();
-      }
-    } catch (e) {
+  Future<BookResponseModel> getLastBooks() {
+    final jsonString = sharedPreferences.getString(cachedBooks);
+    if (jsonString != null) {
+      return Future.value(bookResponseModelFromJson(jsonDecode(jsonString)));
+    } else {
       throw CacheException();
     }
   }
 
   @override
-  Future<void> saveBooks(BookResponseModel booksToCache) async {
-    final box = await hive.openBox<BookResponseModel>('cached_books');
-    await box.clear();
-    await box.add(booksToCache);
+  Future<void> saveBooks(BookResponseModel booksToCache) {
+    return sharedPreferences.setString(
+      cachedBooks,
+      json.encode(bookResponseModelToJson(booksToCache)),
+    );
   }
 
   @override
   Future<void> saveBookDetail(BookDetail bookDetail) async {
-    final box = await hive.openBox<BookDetail>('cached_book_details');
-    await box.put(bookDetail.id, bookDetail);
+    final jsonString = json.encode(bookDetailToJson(bookDetail));
+    await sharedPreferences.setString(
+        '$cachedBookDetails-${bookDetail.id}', jsonString);
   }
 
   @override
-  Future<BookDetail> getBookDetail(int bookId) async {
-    final box = await hive.openBox<BookDetail>('cached_book_details');
-    final jsonMap = box.get(bookId);
-    if (jsonMap != null) {
-      return BookDetail.fromJson(jsonMap as Map<String, dynamic>);
+  Future<BookDetail> getBookDetail(int bookId) {
+    final jsonString =
+        sharedPreferences.getString('$cachedBookDetails-$bookId');
+    if (jsonString != null) {
+      return Future.value(bookDetailFromJson(jsonDecode(jsonString)));
     } else {
       throw CacheException();
     }
@@ -59,21 +62,26 @@ class BookLocalDataSourceImpl implements BookLocalDataSource {
 
   @override
   Future<void> likeBook(int bookId) async {
-    final box = await hive.openBox<BookDetail>('cached_book_details');
-    final bookDetail = box.get(bookId);
-    if (bookDetail != null) {
-      bookDetail.liked = true;
-      await box.put(bookId, bookDetail);
-    } else {
-      throw CacheException();
+    final likedBooks = sharedPreferences.getStringList(likedBooksKey) ?? [];
+    if (!likedBooks.contains(bookId.toString())) {
+      likedBooks.add(bookId.toString());
+      await sharedPreferences.setStringList(likedBooksKey, likedBooks);
     }
   }
 
   @override
   Future<List<BookDetail>> getLikedBooks() async {
-    final box = await hive.openBox<BookDetail>('cached_book_details');
-    final likedBooks =
-        box.values.where((book) => (book).liked ?? false).toList();
-    return likedBooks.cast<BookDetail>();
+    final likedBooksIds = sharedPreferences.getStringList(likedBooksKey) ?? [];
+    final likedBooks = <BookDetail>[];
+
+    for (final bookId in likedBooksIds) {
+      final jsonString =
+          sharedPreferences.getString('$cachedBookDetails-$bookId');
+      if (jsonString != null) {
+        likedBooks.add(bookDetailFromJson(jsonDecode(jsonString)));
+      }
+    }
+
+    return Future.value(likedBooks);
   }
 }

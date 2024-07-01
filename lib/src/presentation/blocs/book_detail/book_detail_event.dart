@@ -15,3 +15,19 @@ class GetBookDetail extends BookDetailEvent {
   @override
   List<Object?> get props => [bookId];
 }
+
+class LikeBook extends BookDetailEvent {
+  final int bookId;
+
+  const LikeBook(this.bookId);
+
+  @override
+  List<Object?> get props => [bookId];
+}
+
+class GetLikedBooks extends BookDetailEvent {
+  const GetLikedBooks();
+
+  @override
+  List<Object?> get props => [];
+}
