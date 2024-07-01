@@ -3,6 +3,9 @@ import 'package:flutter_gutenberg_app/src/domain/usecase/book/get_book_usecase.d
 
 abstract class BookEvent extends Equatable {
   const BookEvent();
+
+  @override
+  List<Object> get props => [];
 }
 
 class GetBooks extends BookEvent {
@@ -11,12 +14,14 @@ class GetBooks extends BookEvent {
   const GetBooks(this.params);
 
   @override
-  List<Object?> get props => [params];
+  List<Object> get props => [params];
 }
 
 class GetMoreBooks extends BookEvent {
-  const GetMoreBooks();
+  final String nextPageUrl;
+
+  const GetMoreBooks(this.nextPageUrl);
 
   @override
-  List<Object?> get props => [];
+  List<Object> get props => [];
 }

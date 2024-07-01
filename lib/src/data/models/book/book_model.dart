@@ -1,3 +1,4 @@
+import '../../../domain/entities/book/author.dart';
 import '../../../domain/entities/book/book.dart';
 
 class AuthorModel extends Author {
@@ -25,7 +26,13 @@ class BookModel extends Book {
     required super.id,
     required super.title,
     required super.authors,
-    required super.description,
+    required super.subjects,
+    required super.bookshelves,
+    required super.languages,
+    required super.copyright,
+    required super.mediaType,
+    required super.formats,
+    required super.downloadCount,
   });
 
   factory BookModel.fromJson(Map<String, dynamic> json) => BookModel(
@@ -33,7 +40,13 @@ class BookModel extends Book {
         title: json["title"],
         authors: List<AuthorModel>.from(
             json["authors"].map((x) => AuthorModel.fromJson(x))),
-        description: json["description"],
+        subjects: List<String>.from(json["subjects"]),
+        bookshelves: List<String>.from(json["bookshelves"]),
+        languages: List<String>.from(json["languages"]),
+        copyright: json["copyright"],
+        mediaType: json["media_type"],
+        formats: Map<String, String>.from(json["formats"]),
+        downloadCount: json["download_count"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -41,6 +54,12 @@ class BookModel extends Book {
         "title": title,
         "authors":
             List<dynamic>.from(authors.map((x) => (x as AuthorModel).toJson())),
-        "description": description,
+        "subjects": List<dynamic>.from(subjects.map((x) => x)),
+        "bookshelves": List<dynamic>.from(bookshelves.map((x) => x)),
+        "languages": List<dynamic>.from(languages.map((x) => x)),
+        "copyright": copyright,
+        "media_type": mediaType,
+        "formats": formats,
+        "download_count": downloadCount,
       };
 }

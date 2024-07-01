@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
 
-// Light Theme Colors
-Color aLightBackgroundColor = const Color(0xFFFFFFFF); // #FFFFFF
-Color aLightPrimaryColor = const Color(0xFF6CA6C1); // #6CA6C1
-Color aLightSecondaryColor = const Color(0xFF343434); // #343434
-Color aLightAccentColor =
-    const Color(0xFFF7FFF7).withOpacity(0.37); // #F7FFF7 with 37% opacity
-Color aLightTextColor =
-    const Color(0xFF343434).withOpacity(0.37); // #343434 with 37% opacity
-Color aLightParticlesColor = const Color(0xFFFFFFFF); // #FFFFFF
-
-// Dark Theme Colors
-Color aDarkBackgroundColor = const Color(0xFF343434); // #343434
-Color aDarkPrimaryColor = const Color(0xFF6CA6C1); // #6CA6C1
-Color aDarkSecondaryColor = const Color(0xFFF7FFF7); // #F7FFF7
-Color aDarkAccentColor = const Color(0xFFFFFFFF); // #FFFFFF
-Color aDarkParticlesColor = const Color(0xFF343434); // #343434
-Color aDarkTextColor = const Color(0xFFF7FFF7);               // #F7FFF7
+const Color kPrimaryColor = Color(0xFF6CA6C1);
+const Color kPrimaryColor37 = Color(0xA16CA6C1);
+const Color kBlackColor = Color(0xFF343434);
+const Color kWhiteColor = Color(0xffFFFFFF);
+const Color kGreyColor = Color(0xff9698A9);
+const Color kGreenColor = Color(0xff0EC3AE);
+const Color kBlueColor = Color(0xffe3fcff);
+const Color kRedColor = Color(0xffEB70A5);
+const Color kBackgroundColor = Color(0xffFFFFFF);
+const Color kInactiveColor = Color(0xffDBD7EC);
+const Color kTransparentColor = Colors.transparent;
+const Color kAvailableColor = Color(0xffE0D9FF);
+const Color kUnavailableColor = Color(0xffEBECF1);

@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter_gutenberg_app/src/domain/entities/book/book_response.dart';
 
 import '../../../core/error/failures.dart';
-import '../../../data/models/book/book_response_model.dart';
 import '../../repositories/book_repository.dart';
 
 class GetBookUseCase {
@@ -9,8 +9,7 @@ class GetBookUseCase {
 
   GetBookUseCase(this.repository);
 
-  Future<Either<Failure, BookResponseModel>> call(
-      FilterBookParams params) async {
+  Future<Either<Failure, BookResponse>> call(FilterBookParams params) async {
     return await repository.getBooks(params);
   }
 }
@@ -27,7 +26,7 @@ class FilterBookParams {
   final String? topic;
   final String? pageUrl;
 
-  FilterBookParams({
+  const FilterBookParams({
     this.authorYearStart,
     this.authorYearEnd,
     this.copyright,

@@ -1,82 +1,66 @@
-
 import 'package:bloc/bloc.dart';
-
-import '../../../core/error/failures.dart';
-import '../../../domain/entities/book/book.dart';
-import '../../../domain/entities/book/pagination_meta_data.dart';
-import '../../../domain/usecase/book/get_book_usecase.dart';
 import 'book_event.dart';
 import 'book_state.dart';
+import '../../../domain/usecase/book/get_book_usecase.dart';
 
 class BookBloc extends Bloc<BookEvent, BookState> {
   final GetBookUseCase _getBookUseCase;
 
   BookBloc(this._getBookUseCase)
-      : super(BookInitial(
+      : super(const BookInitial(
           books: [],
-          metaData: PaginationMetaData(
-            count: 0,
-            next: null,
-            previous: null,
-          ),
         )) {
     on<GetBooks>(_onLoadBooks);
     on<GetMoreBooks>(_onLoadMoreBooks);
   }
 
-  void _onLoadBooks(GetBooks event, Emitter<BookState> emit) async {
-    try {
-      emit(BookLoading(books: [], metaData: state.metaData));
-      final result = await _getBookUseCase(event.params);
-      result.fold(
-        (failure) => emit(BookError(
-          books: state.books,
-          metaData: state.metaData,
-          failure: failure,
-        )),
-        (bookResponse) => emit(BookLoaded(
+  Future<void> _onLoadBooks(GetBooks event, Emitter<BookState> emit) async {
+    emit(const BookLoading());
+    final result = await _getBookUseCase(event.params);
+    result.fold(
+      (failure) => emit(BookError(
+        books: const [],
+        failure: failure,
+      )),
+      (bookResponse) => emit(
+        BookLoaded(
+          count: bookResponse.count,
+          next: bookResponse.next,
+          previous: bookResponse.previous,
+          currentCount: bookResponse.books.length,
           books: bookResponse.books,
-          metaData: bookResponse.paginationMetaData,
-        )),
-      );
-    } catch (e) {
-      emit(BookError(
-        books: state.books,
-        metaData: state.metaData,
-        failure: ExceptionFailure(),
-      ));
-    }
+        ),
+      ),
+    );
   }
 
-  void _onLoadMoreBooks(GetMoreBooks event, Emitter<BookState> emit) async {
-    var state = this.state;
-    if (state is BookLoaded && state.metaData.next != null) {
-      try {
-        emit(BookLoading(books: state.books, metaData: state.metaData));
-        final result = await _getBookUseCase(FilterBookParams(
-          pageUrl: state.metaData.next,
-        ));
-        result.fold(
-          (failure) => emit(BookError(
-            books: state.books,
-            metaData: state.metaData,
-            failure: failure,
-          )),
-          (bookResponse) {
-            List<Book> books = List.from(state.books)..addAll(bookResponse.books);
-            emit(BookLoaded(
-              books: books,
-              metaData: bookResponse.paginationMetaData,
-            ));
-          },
-        );
-      } catch (e) {
-        emit(BookError(
-          books: state.books,
-          metaData: state.metaData,
-          failure: ExceptionFailure(),
-        ));
-      }
+  Future<void> _onLoadMoreBooks(
+      GetMoreBooks event, Emitter<BookState> emit) async {
+    final currentState = state;
+    int currentCount = (currentState.books ?? []).length;
+    if (currentState is BookLoaded) {
+      emit(BookLoadingMore(books: currentState.books));
+      final result =
+          await _getBookUseCase(FilterBookParams(pageUrl: event.nextPageUrl));
+      result.fold(
+        (failure) => emit(BookError(
+          books: currentState.books,
+          failure: failure,
+        )),
+        (bookResponse) {
+          if (bookResponse.count != 0) {
+            emit(
+              BookLoaded(
+                count: bookResponse.count,
+                next: bookResponse.next,
+                previous: bookResponse.previous,
+                currentCount: currentCount + bookResponse.books.length,
+                books: (currentState.books ?? []) + bookResponse.books,
+              ),
+            );
+          }
+        },
+      );
     }
   }
 }

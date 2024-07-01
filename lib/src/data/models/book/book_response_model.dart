@@ -1,8 +1,7 @@
 import 'dart:convert';
-import '../../../domain/entities/book/book.dart';
-import '../../../domain/entities/book/pagination_meta_data.dart';
-import 'pagination_data_model.dart';
+
 import 'book_model.dart';
+import '../../../domain/entities/book/book.dart';
 import '../../../domain/entities/book/book_response.dart';
 
 BookResponseModel bookResponseModelFromJson(String str) =>
@@ -12,45 +11,42 @@ String bookResponseModelToJson(BookResponseModel data) =>
     json.encode(data.toJson());
 
 class BookResponseModel extends BookResponse {
-  final PaginationMetaData? meta;
-  final List<Book>? data;
+  final int count;
+  final String next;
+  final String previous;
+  final List<Book>? results;
 
   BookResponseModel({
-    required this.meta,
-    required this.data,
+    required this.count,
+    required this.next,
+    required this.previous,
+    required this.results,
   }) : super(
-            books: data ?? [],
-            paginationMetaData:
-                meta ?? PaginationMetaData(count: 0, next: "", previous: ""));
+          count: count,
+          next: next,
+          previous: previous,
+          books: results ?? [],
+        );
 
-  factory BookResponseModel.fromJson(Map<String, dynamic>? json) {
-    if (json == null) {
-      return BookResponseModel(
-        meta: null,
-        data: [],
-      );
-    }
-
+  factory BookResponseModel.fromJson(Map<String, dynamic> json) {
     return BookResponseModel(
-      meta: json["meta"] != null
-          ? PaginationMetaDataModel.fromJson(json["meta"])
-          : null,
-      data: json["data"] != null
-          ? List<Book>.from(json["data"].map((x) => BookModel.fromJson(x)))
+      count: json["count"] ?? 0,
+      next: json["next"] ?? '',
+      previous: json["previous"] ?? '',
+      results: json["results"] != null
+          ? List<Book>.from(json["results"].map((x) => BookModel.fromJson(x)))
           : [],
     );
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> json = {};
-
-    if (meta != null) {
-      json["meta"] = meta!.toJson();
-    }
-
-    if (data != null) {
-      json["data"] = data!.map((x) => x.toJson()).toList();
-    }
+    final Map<String, dynamic> json = {
+      "count": count,
+      "next": next,
+      "previous": previous,
+      "results":
+          results != null ? results!.map((x) => x.toJson()).toList() : [],
+    };
 
     return json;
   }

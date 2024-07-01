@@ -21,7 +21,7 @@ void main() {
   });
 
   group('getBooks', () {
-    final fakeParams = FilterBookParams(
+    final fakeParams = const FilterBookParams(
       sort: 'ascending',
     );
 

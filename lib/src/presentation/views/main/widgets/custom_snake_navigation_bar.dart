@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gutenberg_app/src/core/constant/size.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../../core/constant/colors.dart';
@@ -15,28 +16,50 @@ class CustomSnakeNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SnakeNavigationBar.color(
-      behaviour: SnakeBarBehaviour.floating,
-      snakeShape: SnakeShape.indicator,
-      shape: const RoundedRectangleBorder(
+    return Container(
+      decoration: const BoxDecoration(
+        color: kBackgroundColor,
+        border: Border(
+          left: BorderSide(
+            width: 1,
+            color: kPrimaryColor,
+          ),
+          top: BorderSide(
+            width: 1,
+            color: kPrimaryColor,
+          ),
+          right: BorderSide(
+            width: 1,
+            color: kPrimaryColor,
+          ),
+        ),
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(12),
-          topRight: Radius.circular(12),
+          topLeft: Radius.circular(defaultRadius),
+          topRight: Radius.circular(defaultRadius),
         ),
       ),
-      backgroundColor: aLightBackgroundColor,
-      snakeViewColor: aLightPrimaryColor,
-      height: 50,
-      elevation: 7,
-      selectedItemColor: aLightPrimaryColor,
-      unselectedItemColor: aLightTextColor,
-      showUnselectedLabels: true,
-      showSelectedLabels: true,
-      currentIndex: currentIndex,
-      onTap: onTap,
-      items: _buildNavigationBarItems(),
-      unselectedLabelStyle: _buildLabelStyle(aLightTextColor),
-      selectedLabelStyle: _buildLabelStyle(aLightPrimaryColor),
+      child: SnakeNavigationBar.color(
+        behaviour: SnakeBarBehaviour.floating,
+        snakeShape: SnakeShape.indicator,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(defaultRadius),
+            topRight: Radius.circular(defaultRadius),
+          ),
+        ),
+        backgroundColor: kBackgroundColor,
+        snakeViewColor: kPrimaryColor,
+        height: 50,
+        selectedItemColor: kPrimaryColor,
+        unselectedItemColor: kGreyColor,
+        showUnselectedLabels: true,
+        showSelectedLabels: true,
+        currentIndex: currentIndex,
+        onTap: onTap,
+        items: _buildNavigationBarItems(),
+        unselectedLabelStyle: _buildLabelStyle(kGreyColor),
+        selectedLabelStyle: _buildLabelStyle(kPrimaryColor),
+      ),
     );
   }
 
@@ -69,12 +92,12 @@ class CustomSnakeNavigationBar extends StatelessWidget {
       icon: FaIcon(
         icon,
         size: 20.0,
-        color: aLightTextColor,
+        color: kGreyColor,
       ),
       activeIcon: FaIcon(
         icon,
         size: 20.0,
-        color: aLightPrimaryColor,
+        color: kPrimaryColor,
       ),
       label: label,
     );

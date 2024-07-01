@@ -18,12 +18,8 @@ class _MainViewState extends State<MainView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          _buildPageView(),
-          _buildBottomNavigationBar(),
-        ],
-      ),
+      body: _buildPageView(),
+      bottomNavigationBar: _buildBottomNavigationBar(),
     );
   }
 
@@ -54,6 +50,7 @@ class _MainViewState extends State<MainView> {
           return CustomSnakeNavigationBar(
             currentIndex: state,
             onTap: (index) {
+              FocusScope.of(context).unfocus();
               context.read<NavbarCubit>().controller.animateToPage(
                     index,
                     duration: const Duration(milliseconds: 400),
