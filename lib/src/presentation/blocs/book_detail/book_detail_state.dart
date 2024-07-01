@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter_gutenberg_app/src/domain/entities/book_detail/book_detail.dart';
 import '../../../core/error/failures.dart';
 import '../../../domain/entities/book/author.dart';
 import '../../../domain/entities/book_detail/formats.dart';
@@ -78,4 +79,22 @@ class BookDetailError extends BookDetailState {
 
   @override
   List<Object?> get props => [failure];
+}
+
+class BookLiked extends BookDetailState {
+  final bool isLiked;
+
+  const BookLiked(this.isLiked);
+
+  @override
+  List<Object?> get props => [isLiked];
+}
+
+class LikedBooksLoaded extends BookDetailState {
+  final List<BookDetail> likedBooks;
+
+  const LikedBooksLoaded(this.likedBooks);
+
+  @override
+  List<Object?> get props => [likedBooks];
 }

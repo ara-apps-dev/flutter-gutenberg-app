@@ -1,5 +1,6 @@
 import '../../../domain/entities/book/author.dart';
 import '../../../domain/entities/book/book.dart';
+import '../../../domain/entities/book_detail/formats.dart';
 
 class AuthorModel extends Author {
   AuthorModel({
@@ -45,7 +46,7 @@ class BookModel extends Book {
         languages: List<String>.from(json["languages"]),
         copyright: json["copyright"] ?? false,
         mediaType: json["media_type"],
-        formats: Map<String, String>.from(json["formats"]),
+        formats: Formats.fromJson(json["formats"]),
         downloadCount: json["download_count"],
       );
 

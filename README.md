@@ -18,7 +18,8 @@
 <h3>Networking and Data Storage:</h3>
 <ul>
     <li>HTTP - Network requests</li>
-    <li>hive - Lightweight and efficient NoSQL database for local storage</li>
+    <li>shared_preferences - Persistent storage using shared preferences</li>
+    <li>flutter_secure_storage - Secure storage for sensitive data</li>
 </ul>
 
 <h3>UI Libraries and Additional Functionality:</h3>

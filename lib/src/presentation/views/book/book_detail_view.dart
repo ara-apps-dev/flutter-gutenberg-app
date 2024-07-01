@@ -4,14 +4,14 @@ import 'package:flutter_gutenberg_app/src/core/constant/colors.dart';
 import 'package:flutter_gutenberg_app/src/core/constant/size.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../../../data/data_sources/local/book_local_data_source.dart';
 import '../../blocs/book_detail/book_detail_bloc.dart';
 import '../../blocs/book_detail/book_detail_event.dart';
 import '../../blocs/book_detail/book_detail_state.dart';
 
 class BookDetailView extends StatefulWidget {
   final int bookId;
-  const BookDetailView({super.key, required this.bookId});
+
+  const BookDetailView({Key? key, required this.bookId}) : super(key: key);
 
   @override
   State<BookDetailView> createState() => _BookDetailViewState();
@@ -46,13 +46,13 @@ class _BookDetailViewState extends State<BookDetailView> {
                 return FaIcon(
                   FontAwesomeIcons.solidThumbsUp,
                   size: 20.0,
-                  color: (state.liked ?? false) ? kWhiteColor : kGreyColor,
+                  color: (state is BookDetailLoaded) && (state.liked ?? false)
+                      ? kWhiteColor
+                      : kGreyColor,
                 );
               },
             ),
-            onPressed: () {
-              context.read<BookLocalDataSource>().likeBook(widget.bookId);
-            },
+            onPressed: () {},
           )
         ],
       ),
