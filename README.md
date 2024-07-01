@@ -1,5 +1,5 @@
 <h1>Flutter Gutenberg App</h1>
-    <p>A mobile application built using Flutter to browse and manage books from the <a href="http://gutendex.com/">Gutenberg API</a>.</p>
+<p>A mobile application built using Flutter to browse and manage books from the <a href="http://gutendex.com/">Gutenberg API</a>.</p>
 
 <h2>Tech Stack</h2>
 
@@ -18,8 +18,7 @@
 <h3>Networking and Data Storage:</h3>
 <ul>
     <li>HTTP - Network requests</li>
-    <li>shared_preferences - Persistent storage using shared preferences</li>
-    <li>flutter_secure_storage - Secure storage for sensitive data</li>
+    <li>hive - Lightweight and efficient NoSQL database for local storage</li>
 </ul>
 
 <h3>UI Libraries and Additional Functionality:</h3>
@@ -47,7 +46,7 @@
 
 <h2>Layout on Figma</h2>
 <ul>
-    <li><a href="">Figma Design</a></li>
+    <li><a href="https://www.figma.com/design/aISSawdDHKLGs72ThWQR85/Ara-Gutenberg-App?node-id=2-130&t=gTBypkeKSZZyIjNP-0">Figma Design</a></li>
 </ul>
 
 <h2>How to Run Flutter App Locally</h2>
@@ -57,8 +56,12 @@
     <code>git clone https://github.com/ara-apps-dev/flutter-gutenberg-app.git</code>
     <li>Navigate into the project directory:</li>
     <code>cd flutter-gutenberg-app</code>
+    <li>Extract the starter zip file into the starter_setup directory and run:</li>
+    <code>make starter-setup</code>
     <li>Install dependencies:</li>
     <code>flutter pub get</code>
+    <li>Generate production environment(This will generate the URL for the production environment):</li>
+    <code>make generate-prod</code>
     <li>Connect a device or start an emulator/simulator.</li>
     <li>Run the app:</li>
     <code>flutter run</code>
@@ -72,7 +75,7 @@
     <code>flutter test</code>
 </ol>
 
-<h2>How to Run Automation Testing</h2>
+<h2>How to Run Automation Testing (Not implemented yet)</h2>
 <p>For automated testing, follow these steps:</p>
 <ol>
     <li>Prepare your test scripts using Flutter's testing framework (e.g., Flutter Driver).</li>
@@ -81,19 +84,4 @@
     <code>flutter drive --target=test_driver/app.dart</code>
 </ol>
 
-<h3>Todo List</h3>
-<ul>
-    <li>Create UI/UX design using Figma: Completed ✅</li>
-    <li>Set up Flutter project structure: Completed ✅</li>
-    <li>Implement state management using BLoC and GetIt : Todo ⏳</li>
-    <li>Design and implement task list screen : Todo ⏳</li>
-    <li>Implement CRUD functionality for tasks : Todo ⏳</li>
-    <li>Persist data using SQLite : Todo ⏳</li>
-    <li>Add task completion feature : Todo ⏳</li>
-    <li>Implement search functionality : Todo ⏳</li>
-    <li>Write unit and widget tests : Todo ⏳</li>
-    <li>Implement automation tests (integration and end-to-end tests using Maestro) : Todo ⏳</li>
-    <li>Prepare documentation : Todo ⏳</li>
-    <li>Implement GitHub Actions for Android deployment to Firebase : Todo ⏳</li>
-    <li>Deploy to Firebase for Android : Todo ⏳</li>
-</ul>
+---

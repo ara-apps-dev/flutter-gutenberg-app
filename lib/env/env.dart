@@ -6,6 +6,9 @@ const envPath = String.fromEnvironment('ENV_PATH', defaultValue: '.env');
 
 @Envied(obfuscate: true)
 abstract class Env {
+  @EnviedField(varName: 'APP_NAME')
+  static final String appName = _Env.appName;
+
   @EnviedField(varName: 'MODE')
   static final String mode = _Env.mode;
 
