@@ -27,7 +27,7 @@ class BookBloc extends Bloc<BookEvent, BookState> {
           count: bookResponse.count,
           next: bookResponse.next,
           previous: bookResponse.previous,
-          currentCount: bookResponse.books.length,
+          currentCount: (bookResponse.books ?? []).length,
           books: bookResponse.books,
         ),
       ),
@@ -54,8 +54,8 @@ class BookBloc extends Bloc<BookEvent, BookState> {
                 count: bookResponse.count,
                 next: bookResponse.next,
                 previous: bookResponse.previous,
-                currentCount: currentCount + bookResponse.books.length,
-                books: (currentState.books ?? []) + bookResponse.books,
+                currentCount: currentCount + (bookResponse.books ?? []).length,
+                books: (currentState.books ?? []) + (bookResponse.books ?? []),
               ),
             );
           }

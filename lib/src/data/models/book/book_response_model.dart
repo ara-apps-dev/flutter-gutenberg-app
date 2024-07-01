@@ -28,17 +28,19 @@ class BookResponseModel extends BookResponse {
           books: results ?? [],
         );
 
-  factory BookResponseModel.fromJson(Map<String, dynamic> json) {
+  factory BookResponseModel.fromJson(Map<dynamic, dynamic> json) {
     return BookResponseModel(
       count: json["count"] ?? 0,
       next: json["next"] ?? '',
       previous: json["previous"] ?? '',
       results: json["results"] != null
-          ? List<Book>.from(json["results"].map((x) => BookModel.fromJson(x)))
+          ? List<BookModel>.from(
+              json["results"].map((x) => BookModel.fromJson(x)))
           : [],
     );
   }
 
+  @override
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> json = {
       "count": count,

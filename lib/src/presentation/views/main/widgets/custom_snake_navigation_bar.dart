@@ -69,18 +69,18 @@ class CustomSnakeNavigationBar extends StatelessWidget {
         icon: FontAwesomeIcons.swatchbook,
         label: 'Home',
       ),
-      _buildNavigationBarItem(
-        icon: FontAwesomeIcons.bookBookmark,
-        label: 'Bookshelf',
-      ),
+      // _buildNavigationBarItem(
+      //   icon: FontAwesomeIcons.bookBookmark,
+      //   label: 'Bookshelf',
+      // ),
       _buildNavigationBarItem(
         icon: FontAwesomeIcons.solidThumbsUp,
         label: 'Liked',
       ),
-      _buildNavigationBarItem(
-        icon: FontAwesomeIcons.gear,
-        label: 'Settings',
-      ),
+      // _buildNavigationBarItem(
+      //   icon: FontAwesomeIcons.gear,
+      //   label: 'Settings',
+      // ),
     ];
   }
 

@@ -1,10 +1,10 @@
 import 'book.dart';
 
 class BookResponse {
-  final int count;
-  final String next;
-  final String previous;
-  final List<Book> books;
+  final int? count;
+  final String? next;
+  final String? previous;
+  final List<Book>? books;
 
   BookResponse({
     required this.count,
@@ -13,7 +13,6 @@ class BookResponse {
     required this.books,
   });
 
-  // Optional: You can add a factory constructor for JSON deserialization if needed.
   factory BookResponse.fromJson(Map<String, dynamic> json) {
     return BookResponse(
       count: json['count'] ?? 0,
@@ -25,13 +24,12 @@ class BookResponse {
     );
   }
 
-  // Optional: You can add a toJson method for serialization to JSON.
   Map<String, dynamic> toJson() {
     return {
       'count': count,
       'next': next,
       'previous': previous,
-      'books': books.map((book) => book.toJson()).toList(),
+      'books': (books ?? []).map((book) => book.toJson()).toList(),
     };
   }
 }

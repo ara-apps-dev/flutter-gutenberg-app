@@ -43,7 +43,7 @@ class BookModel extends Book {
         subjects: List<String>.from(json["subjects"]),
         bookshelves: List<String>.from(json["bookshelves"]),
         languages: List<String>.from(json["languages"]),
-        copyright: json["copyright"],
+        copyright: json["copyright"] ?? false,
         mediaType: json["media_type"],
         formats: Map<String, String>.from(json["formats"]),
         downloadCount: json["download_count"],

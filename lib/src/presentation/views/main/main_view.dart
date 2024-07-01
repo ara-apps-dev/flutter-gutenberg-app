@@ -31,9 +31,9 @@ class _MainViewState extends State<MainView> {
           controller: context.read<NavbarCubit>().controller,
           children: const [
             HomeView(),
-            BookshelfView(),
+            // BookshelfView(),
             LikedView(),
-            SettingsView(),
+            // SettingsView(),
           ],
         );
       },

@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../core/constant/colors.dart';
+import '../../core/router/app_router.dart';
 import '../../domain/entities/book/book.dart';
 import '../../core/constant/size.dart';
 
@@ -35,8 +36,9 @@ class BookCard extends StatelessWidget {
   Widget _buildBookCard(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if (onClick != null) {
-          onClick!();
+        if (book?.id != null) {
+          Navigator.of(context)
+              .pushNamed(AppRouter.bookDetails, arguments: book?.id);
         }
       },
       child: _buildCardContent(context),
